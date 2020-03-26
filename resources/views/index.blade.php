@@ -9,7 +9,9 @@
     <tr>
       <th scope="col">title</th>
       <th scope="col">Desc</th>
-      <th scope="col"></th>
+      <th scope="col">Posted By</th>
+      <th scope="col">Created At</th>
+      <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -17,6 +19,9 @@
         <tr>
           <td>{{$post['title']}}</td>
           <td>{{$post['description']}}</td>
+          <td>{{$post['user_id']}}</td>
+          <td>{{ \Illuminate\Support\Str::limit($post['created_at'], 10, $end='') }}</td>
+          
           
             <td><a href="{{route('posts.show', ['post' => $post->id])}}" class="btn btn-primary btn-success">View</a>
             <a href="{{route('posts.edit', ['post' => $post->id])}}" class="btn btn-primary btn-warning">Edit</a>
