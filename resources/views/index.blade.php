@@ -17,10 +17,10 @@
   <tbody>
     @foreach($posts as $post)
         <tr>
-          <td>{{$post['title']}}</td>
-          <td>{{$post['description']}}</td>
-          <td>{{$post['user_id']}}</td>
-          <td>{{ \Illuminate\Support\Str::limit($post['created_at'], 10, $end='') }}</td>
+          <td>{{$post->title}}</td>
+          <td>{{$post->description}}</td>
+          <td>{{$post->user_id}}</td>
+          <td>{{$post->created_at->toDateString()}}</td>
           
           
             <td><a href="{{route('posts.show', ['post' => $post->id])}}" class="btn btn-primary btn-success">View</a>
@@ -28,12 +28,12 @@
             
 
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary btn-danger" data-toggle="modal" data-target="#exampleModal">
+          <button type="button" class="btn btn-primary btn-danger" data-toggle="modal" data-target="#exampleModal{{$post->id}}">
             Delete
           </button></td>
         </tr>
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="exampleModal{{$post->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">

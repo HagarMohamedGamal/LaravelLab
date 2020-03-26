@@ -3,9 +3,19 @@
     <div class="container">
         <div class="card" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title">{{$post->title}}</h5>
-                <p class="card-text">{{$post->description}}</p>
-                <div class="text-muted"><small> written by {{$user}}</small></div>
+                <h3 class="card-title">Title: {{$post->title}}</h3>
+                <p class="card-text">Description: {{$post->description}}</p>
+                <div class="text-muted"><small> written by {{$user->name}}</small></div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h3 class="card-title">Post Creator info</h3>
+                <p class="card-text">Name: {{$user->name}}</p>
+                <p class="card-text">Email: {{$user->email}}</p>
+                <p class="card-text">Created At: {{$post->created_at}}</p>
             </div>
         </div>
     </div>

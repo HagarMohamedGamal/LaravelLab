@@ -9,6 +9,17 @@ class PostsController{
 
     function index () {
         $posts = Post::all();
+        $users = User::all();
+        $newPosts=[];
+        foreach($posts as $post){
+            foreach($users as $user ){
+                if($user->id == $post->user_id){
+                    $post->user_id = $user->name;
+                    $newPosts[] = $post;
+                }
+            }
+        }
+        // dd($newPosts);
         // $posts=[
         //     [
         //         "title"=>"first title1",
@@ -28,7 +39,7 @@ class PostsController{
         //     ],
         // ];
         return view('index', [
-            'posts' => $posts,
+            'posts' => $posts
         ]);
     }
 
@@ -41,7 +52,7 @@ class PostsController{
         // $post = Post::where('id', $postId)->get();
         return view('show', [
             'post' => $post,
-            'user' => $user->name
+            'user' => $user
         ]);
     }
 
