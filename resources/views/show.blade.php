@@ -15,7 +15,7 @@
                 <h3 class="card-title">Post Creator info</h3>
                 <p class="card-text">Name: {{$user->name}}</p>
                 <p class="card-text">Email: {{$user->email}}</p>
-                <p class="card-text">Created At: {{$post->created_at}}</p>
+                <p class="card-text">Created At: {{$post->created_at->format('l jS \\of F Y h:i:s A')}}</p>
             </div>
         </div>
     </div>
