@@ -35,9 +35,12 @@ class PostsController{
         $request = request();
         $postId = $request->post;
         $post = Post::find($postId);
+        $user = User::find($post->user_id);
+        // dd($user->id);
         // $post = Post::where('id', $postId)->get();
         return view('show', [
-            'post' => $post
+            'post' => $post,
+            'user' => $user->name
         ]);
     }
 

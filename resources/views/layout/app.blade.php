@@ -8,7 +8,7 @@
 
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
   <a class="navbar-brand" href="{{route('posts.index')}}">Blog</a>
 </nav>
 
