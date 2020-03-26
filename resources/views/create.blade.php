@@ -1,25 +1,35 @@
 @extends('layout.app')
 @section('content')
 
-<h1>hello create</h1>
 <div class="container">
-    <form method="POST" action="{{route('posts.store')}}">
+    <form method="POST" action="
+    @if (isset($currentuser))
+        {{route('posts.update', ['post'=>$post->id])}}
+    @else
+        {{route('posts.store')}}
+    @endif
+    ">
         @csrf
+        @isset($currentuser)
+            @method('PUT')
+        @endisset
         <div class="form-group">
             <label for="exampleFormControlInput1">Title</label>
-            <input type="text" name="title" class="form-control" id="exampleFormControlInput1">
+            <input type="text" name="title" class="form-control" id="exampleFormControlInput1" value="@if (isset($post)){{$post->title}}@endif">
         </div>
         <div class="form-group">
             <label for="exampleFormControlSelect1">User</label>
             <select name="user_id" class="form-control" id="exampleFormControlSelect1">
             @foreach($users as $user)  
-            <option value="{{$user->id}}">{{$user->name}}</option>
+            <option value="{{$user->id}}" @isset($currentuser) @if ( "{{$currentuser->id}}" == "{{$user->id}}" ) selected="selected" @endif @endisset >{{$user->name}}</option>
             @endforeach
             </select>
         </div>
+        
+
         <div class="form-group">
             <label for="exampleFormControlTextarea1">Description</label>
-            <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3">@if (isset($post)){{$post->description}}@endif</textarea>
         </div>
         <button class="btn btn-success m-3" type="submit">Submit New Post</button>
     </form>

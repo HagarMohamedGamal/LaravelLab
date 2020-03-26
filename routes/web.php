@@ -23,4 +23,10 @@ Route::get('/posts/create', 'PostsController@create')->name('posts.create');
 
 Route::get('/posts/{post}', 'PostsController@show')->name('posts.show');
 
+Route::delete('/posts/{post}', 'PostsController@delete')->name('posts.delete');
+
+Route::put('/posts/{post}', 'PostsController@update')->name('posts.update');
+
+Route::get('/posts/{post}/edit', 'PostsController@edit')->name('posts.edit');
+
 Route::post('/posts', 'PostsController@store')->name('posts.store');

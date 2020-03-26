@@ -41,6 +41,43 @@ class PostsController{
         ]);
     }
 
+    function edit () {
+        $request = request();
+        $postId = $request->post;
+        $post = Post::find($postId);
+        $currentUser = User::find($post->user_id);
+        // dd($currentUser);
+        $users = User::all();
+        // $post = Post::where('id', $postId)->get();
+        return view('create', [
+            'post' => $post,
+            'users' => $users,
+            'currentuser' => $currentUser
+        ]);
+    }
+
+    function update () {
+        $request = request();
+        $postId = $request->post;
+        $post = Post::find($postId);
+        // dd($request->title);
+        $affected = Post::where('id', $postId)
+                    ->update([
+                        'title' => $request->title,
+                        'description' => $request->description,
+                        'user_id' => $request->user_id,
+                    ]);
+        return redirect()->route('posts.index');
+
+    }
+
+    function delete () {
+        $request = request();
+        // dd($request->post);
+        Post::find($request->post)->delete();
+        return redirect()->route('posts.index');
+    }
+
     function create(){
         $users = User::all();
         return view('create', [
