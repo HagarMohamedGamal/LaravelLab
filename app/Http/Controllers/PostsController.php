@@ -7,7 +7,8 @@ use App\User;
 
 class PostsController{
 
-    function index () {
+    function index (Request $request2) {
+        dd($request2);
         $posts = Post::simplePaginate(3);
         $users = User::all();
         $newPosts=[];
