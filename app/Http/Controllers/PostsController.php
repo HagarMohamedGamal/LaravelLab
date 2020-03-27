@@ -81,6 +81,7 @@ class PostsController{
                         'title' => $request->title,
                         'description' => $request->description,
                         'user_id' => $request->user_id,
+                        'image' => $request->image
                     ]);
         return redirect()->route('posts.index');
 
@@ -113,7 +114,8 @@ class PostsController{
         Post::create([
             'title' => $request->title,
             'description' => $request->description,
-            'user_id' => $request->user_id
+            'user_id' => $request->user_id,
+            'image' => $request->image
         ]);
 
         return redirect()->route('posts.index');

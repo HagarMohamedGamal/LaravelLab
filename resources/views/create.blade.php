@@ -40,6 +40,9 @@
             <label for="exampleFormControlTextarea1">Description</label>
             <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3">@if (isset($post)){{$post->description}}@endif</textarea>
         </div>
+        <div class="form-group">
+        <input type="file" name="image">
+        </div>
         <button class="btn btn-success m-3" type="submit">Submit New Post</button>
     </form>
 </div>
