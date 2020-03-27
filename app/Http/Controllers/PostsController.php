@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use App\Post;
 use App\User;
 
@@ -70,8 +71,8 @@ class PostsController{
         ]);
     }
 
-    function update () {
-        $request = request();
+    function update (UpdatePostRequest $request) {
+        // $request = request();
         $postId = $request->post;
         $post = Post::find($postId);
         // dd($request->title);
