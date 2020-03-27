@@ -8,7 +8,7 @@ use App\User;
 class PostsController{
 
     function index () {
-        $posts = Post::all();
+        $posts = Post::simplePaginate(3);
         $users = User::all();
         $newPosts=[];
         foreach($posts as $post){
@@ -47,12 +47,10 @@ class PostsController{
         $request = request();
         $postId = $request->post;
         $post = Post::find($postId);
-        $user = User::find($post->user_id);
         // dd($user->id);
         // $post = Post::where('id', $postId)->get();
         return view('show', [
-            'post' => $post,
-            'user' => $user
+            'post' => $post
         ]);
     }
 
