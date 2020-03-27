@@ -2,6 +2,7 @@
 @section('content')
     <div class="container">
         <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{{asset($post->image)}}" alt="Card image cap">
             <div class="card-body">
                 <h3 class="card-title">Title: {{$post->title}}</h3>
                 <p class="card-text">Description: {{$post->description}}</p>

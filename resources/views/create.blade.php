@@ -17,7 +17,7 @@
     @else
         {{route('posts.store')}}
     @endif
-    ">
+    " enctype="multipart/form-data">
         @csrf
         @isset($currentuser)
             @method('PUT')

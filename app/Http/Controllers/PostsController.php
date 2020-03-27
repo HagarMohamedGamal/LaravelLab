@@ -2,8 +2,10 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Http\File;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use Illuminate\Support\Facades\Storage;
 use App\Post;
 use App\User;
 
@@ -21,49 +23,25 @@ class PostsController{
                 }
             }
         }
-        // dd($newPosts);
-        // $posts=[
-        //     [
-        //         "title"=>"first title1",
-        //         "body" => "first body1",
-        //     ],
-        //     [
-        //         "title"=>"first title2",
-        //         "body" => "first body2",
-        //     ],
-        //     [
-        //         "title"=>"first title3",
-        //         "body" => "first body3",
-        //     ],
-        //     [
-        //         "title"=>"first title4",
-        //         "body" => "first body4",
-        //     ],
-        // ];
         return view('index', [
             'posts' => $posts
         ]);
     }
 
-    function show () {
-        $request = request();
+    function show (Request $request) {
         $postId = $request->post;
         $post = Post::find($postId);
-        // dd($user->id);
-        // $post = Post::where('id', $postId)->get();
+        $post->image = Storage::url($post->image);
         return view('show', [
             'post' => $post
         ]);
     }
 
-    function edit () {
-        $request = request();
+    function edit (Request $request) {
         $postId = $request->post;
         $post = Post::find($postId);
         $currentUser = User::find($post->user_id);
-        // dd($currentUser);
         $users = User::all();
-        // $post = Post::where('id', $postId)->get();
         return view('create', [
             'post' => $post,
             'users' => $users,
@@ -72,24 +50,29 @@ class PostsController{
     }
 
     function update (UpdatePostRequest $request) {
-        // $request = request();
-        // dd($request->image);
+        $uploadedFile = $request->file('image');
+        if (isset($uploadedFile))
+            $filename =  time().'_'.$uploadedFile->getClientOriginalName();
+
         $postId = $request->post;
         $post = Post::find($postId);
+        Storage::delete($post->image);
+
         $post->slug = null;
         $post->update([
             'title' => $request->title,
             'description' => $request->description,
             'user_id' => $request->user_id,
+            'image' => isset($filename) ? $request->file('image')->storeAs("public/imgs", $filename) : ""
             ]);
         return redirect()->route('posts.index');
 
     }
 
-    function delete () {
-        $request = request();
-        // dd($request->post);
-        Post::find($request->post)->delete();
+    function delete (Request $request) {
+        $post = Post::find($request->post);
+        Storage::delete($post->image);
+        $post->delete();
         return redirect()->route('posts.index');
     }
 
@@ -101,6 +84,18 @@ class PostsController{
     }
 
     function store(StorePostRequest $request){
+        Post::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'user_id' => $request->user_id,
+            'image' => $request->file('image') ? $request->file('image')->store("public/imgs") : ""
+        ]);
+
+        return redirect()->route('posts.index');
+    }
+}
+
+        //          Notes       //
         // $request = request();
         // $validateData = $request->validate([
         //     'title' => 'required|min:3',
@@ -110,13 +105,3 @@ class PostsController{
         //     'title.required' => "please enter anything in title"
         // ]);
         // dd($request->title, $request->description);
-        Post::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'user_id' => $request->user_id,
-            // 'image' => $request->image
-        ]);
-
-        return redirect()->route('posts.index');
-    }
-}
