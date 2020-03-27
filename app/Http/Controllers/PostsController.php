@@ -73,16 +73,15 @@ class PostsController{
 
     function update (UpdatePostRequest $request) {
         // $request = request();
+        // dd($request->image);
         $postId = $request->post;
         $post = Post::find($postId);
-        // dd($request->title);
-        $affected = Post::where('id', $postId)
-                    ->update([
-                        'title' => $request->title,
-                        'description' => $request->description,
-                        'user_id' => $request->user_id,
-                        'image' => $request->image
-                    ]);
+        $post->slug = null;
+        $post->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'user_id' => $request->user_id,
+            ]);
         return redirect()->route('posts.index');
 
     }
@@ -115,7 +114,7 @@ class PostsController{
             'title' => $request->title,
             'description' => $request->description,
             'user_id' => $request->user_id,
-            'image' => $request->image
+            // 'image' => $request->image
         ]);
 
         return redirect()->route('posts.index');
