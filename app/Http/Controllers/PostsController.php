@@ -1,8 +1,6 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Http\File;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Support\Facades\Storage;
@@ -15,14 +13,6 @@ class PostsController{
         $posts = Post::simplePaginate(3);
         $users = User::all();
         $newPosts=[];
-        foreach($posts as $post){
-            foreach($users as $user ){
-                if($user->id == $post->user_id){
-                    $post->user_id = $user->name;
-                    $newPosts[] = $post;
-                }
-            }
-        }
         return view('index', [
             'posts' => $posts
         ]);
