@@ -2,13 +2,13 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Http\Requests\StorePostRequest;
 use App\Post;
 use App\User;
 
 class PostsController{
 
-    function index (Request $request2) {
-        dd($request2);
+    function index () {
         $posts = Post::simplePaginate(3);
         $users = User::all();
         $newPosts=[];
@@ -99,8 +99,15 @@ class PostsController{
         ]);
     }
 
-    function store(){
-        $request = request();
+    function store(StorePostRequest $request){
+        // $request = request();
+        // $validateData = $request->validate([
+        //     'title' => 'required|min:3',
+        //     'description' => 'required|min:5'
+        // ],[
+        //     'title.min' => "you enterd less than 3 chars",
+        //     'title.required' => "please enter anything in title"
+        // ]);
         // dd($request->title, $request->description);
         Post::create([
             'title' => $request->title,
