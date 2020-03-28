@@ -34,6 +34,8 @@ Route::get('/posts/{post}/edit', 'PostsController@edit')->name('posts.edit');
 Route::post('/posts', 'PostsController@store')->name('posts.store');
 });
 
+Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
 Auth::routes();
 

@@ -11,7 +11,7 @@ use App\Http\Requests\StorePostRequest;
 class PostsController extends Controller
 {
     function index(){
-        return PostResource::collection(Post::paginate(3));
+        return PostResource::collection(Post::with('User')->paginate(3));
     }
 
     function show($post){
