@@ -16,7 +16,6 @@ class Post extends Model
     {
         return $this->belongsTo('App\User');
     }
-
     /**
      * Return the sluggable configuration array for this model.
      *
@@ -30,5 +29,14 @@ class Post extends Model
             ]
         ];
     }
+    
+    /**
+     * Get all of the post's comments.
+     */
+    public function comments()
+    {
+        return $this->morphMany('App\Comment', 'commentable');
+    }
+
 
 }
